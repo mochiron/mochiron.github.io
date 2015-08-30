@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/mermaidUML.css"/>
+    <script src="javascripts/mermaidUML.min.js"></script>
+</head>
+    <body>
+    <h3>Sequence Diagram</h3>
+    <div class="mermaid">
+        sequenceDiagram
+          participant Alice
+          participant Bob
+          participant John the Long
+
+        Alice->>Bob: Hello Bob, how are you?
+        loop Outer loop
+          Note left of Alice: Bob thinks about <br/> things <br/> to say
+            Bob-xBob: I am good thanks!
+            loop Inner loop
+              Bob->>John the Long: How about you John?
+              Note right of John the Long: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit.
+            end
+        end
+        Bob-->>Alice: Checking with John...
+        Alice->>John the Long: Yes... John, how are you?
+        alt is sick
+            John the Long->>Alice: Not so good :(
+        else is well
+            John the Long->>Alice: Feeling fresh like a daisy
+        end
+        opt Extra response
+            John the Long->>Alice: Thanks for asking
+        end
+    </div>
+    <hr/>
+    <div class="mermaid">
+        graph LR
+        subgraph old sys 3
+          a3(new client)-->b3(sys3 server)
+        end
+        subgraph old sys 2
+          a2(new client)-->b2(<a href='"http://google.com"' target='"blank"'>sys2 server-link to google</a>)
+          oc2(Old client)-->b2
+        end
+        subgraph old sys 1
+          a1[new client]--some message-->b1(sys1 server)
+          oc1(Old client)-->b2
+        end
+    </div>
+    <hr/>
+    <div  class="mermaid">
+        graph LR
+          A[Now with default style on links]--v-->B{a = '1,2'}
+          B-->|v|C[v]
+          B-- ... default style on links -->Z>My default thing this]
+          C-->D{condition};
+
+        linkStyle 0 stroke-width:2px,fill:none,stroke:blue;
+        linkStyle default stroke-width:2px,fill:none,stroke:red;
+    </div>
+    <hr/>
+    <div class="mermaid">
+        graph LR
+        A[Square Rect]  --      Link text      -->       B((Circle))
+        A[Square Rect]--v-->D((Circle))
+        A --> C(Round Rect)
+        B    ==  testing ==>     D{Rhombus}
+        C-.->D
+    </div>
+    <hr/>
+    <div class="mermaid">
+      %% Code for flowchart below
+      graph TB
+          sq[Square shape] --> ci((Circle shape))
+
+          subgraph A subgraph
+              od>Odd shape]-- Two line<br>edge comment --> ro
+              di{Diamond with <br/> line break} -.-> ro(Rounded<br>square<br>shape)
+              di==>ro2(Rounded square shape)
+          end
+
+          %% Notice that no text in shape are added here instead that is appended further down
+          e --> od3>Really long text with linebreak<br>in an Odd shape]
+
+          %% Comments after double percent signs
+          e((Inner / circle<br>and some odd <br>special characters)) --> f(,.?!+-*ز)
+
+          cyr[Cyrillic]-->cyr2((Circle shape Начало));
+    </div>
+    <hr/>
+    <div class="mermaid">
+        gantt
+        dateFormat  YYYY-MM-DD
+        title Adding GANTT diagram functionality to mermaid
+
+        section A section
+          Completed task            :done,    des1, 2014-01-06,2014-01-08
+          Active task               :active,  des2, 2014-01-09, 3d
+          Future task               :         des3, after des2, 5d
+          Future task2               :         des4, after des3, 5d
+
+        section Critical tasks
+          Completed task in the critical line :crit, done, 2014-01-06,24h
+          Implement parser and jison          :crit, done, after des1, 2d
+          Create tests for parser             :crit, active, 3d
+          Future task in critical line        :crit, 5d
+          Create tests for renderer           :2d
+          Add to mermaid                      :1d
+
+        section Documentation
+          Describe gantt syntax               :active, a1, after des1, 3d
+          Add gantt diagram to demo page      :after a1  , 20h
+          Add another diagram to demo page    :doc1, after a1  , 48h
+
+        section Last section
+          Describe gantt syntax               :after doc1, 3d
+          Add gantt diagram to demo page      : 20h
+          Add another diagram to demo page    : 48h
+    </div>
+    </body>
+</html>
