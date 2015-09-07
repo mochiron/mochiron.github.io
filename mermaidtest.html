@@ -6,7 +6,58 @@
     <script src="javascripts/mermaidUML.min.js"></script>
 </head>
     <body>
-    <h3>Sequence Diagram</h3>
+<h3>General Flow Tasks</h3>
+<h4>roles:</h4>
+<ul style="font-size: 0.8em; width: 200px; padding: 0.5em 2em; background-color: #ffe">
+  <li style="border-bottom:solid 4px pink">Pink: Business Analyst</li>
+  <li style="border-bottom:solid 4px lightgray">Gray: Client</li>
+  <li style="border-bottom:solid 4px orange">Orange: QA</li>
+  <li style="border-bottom:solid 4px lightcyan">Cyan: Dev</li>
+  <li style="border-bottom:solid 4px lightgreen">Green: Devops</li>
+</ul>
+<div class="mermaid">
+  graph TB
+  subgraph Distributed Agile team flow
+    ba1(understand business requirements: e.g. variations, rules, personas) --> ba2(document user story, paying special attention in the success/acceptance criteria)
+    ba2-->client1(approve user story and acceptance criteria)
+    client1==rejected==>ba1
+    client1==approved==>qa1(create test cases)
+    qa1-->dev2(estimate story points)
+    dev2-->dev3(create subtasks)
+    dev3-->dev4(branch a new feature)
+    dev4-->dev5(create unit tests)
+    dev5-->dev6(code)
+    dev6-->dev7(local test)
+    dev7-->devops1(run automated tests)
+    devops1==test fail==>dev6
+    devops1==test passed==>dev8(pull request)
+    dev8-->devops2(merge)
+    devops2-->devops3(deploy in qa)
+    devops3-->qa2(manual verification)
+    qa2-->qa3(approve test)
+    qa3==rejected==>dev9(create bugfix branch)
+    dev9-->dev6
+    qa3==approved==>devops4(automated deploy in staging)
+    devops4-->client2(UAT)
+    client2-->ba1
+  end
+  classDef classBA fill:pink;
+  classDef classClient fill:lightgray;
+  classDef classQA fill:orange;
+  classDef classDev1 fill:lightcyan;
+  classDef classDevOps fill:lightgreen;
+  class ba1,ba2,ba3,ba4 classBA;
+  class client1,client2,client3,client4 classClient;
+  class qa1,qa2,qa3,qa4 classQA;
+  class dev2,dev3,dev4,dev5,dev6,dev7,dev8,dev9 classDev1;
+  class devops1,devops2,devops3,devops4 classDevOps;
+
+</div>
+
+
+
+<h3>Sequence Diagram</h3>
+
     <div class="mermaid">
         sequenceDiagram
           participant Alice
