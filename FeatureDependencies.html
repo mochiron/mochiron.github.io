@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/mermaidUML.css"/>
+    <script src="javascripts/mermaidUML.min.js"></script>
+    <title></title>
+  </head>
+  <body>
+    <h2>Team B Dependencies</h2>
+    <p>Critical Path for Feature Completion</p>
+    <p>Circles=Features</p>
+
+    <div class="mermaid">
+      graph LR
+
+      %% =============================
+  		%% COMPONENTS
+  		%% =============================
+
+      %% Features
+        B2BC((B2B<br/>Corporate<br/>Bookings))
+        B2BTI((B2B<br/>Technology<br/>Integrator))
+        B2BM((B2B<br/>Metasearch))
+        iSeatz((iSeatz))
+        ParkingPanda((Parking<br/>Panda))
+        Allianz((Allianz))
+        AGR((AGR))
+        AM((Account<br/>Management))
+        Ancillary1((Ancillary Type 1))
+        Ancillary2((Ancillary Type 2))
+        Ancillary3((Ancillary Type 3))
+        Ancillary4((Ancillary Type 4))
+        UpSell((Up-Sell))
+%%        SM((Social Media))
+
+      %% API and API Management
+    		B2BOnboarding(B2B<br/>Onboarding)
+    		B2BValidation(B2B<br/>Validation)
+    		SearchAPI>Search Result<br/>Services]
+    		BookingAPI>Booking Services]
+        RCSAPI>RCS Shop Services]
+        PaymentAPI>Payment Services]
+        iSeatzAPI>Hotel Services]
+        AllianzAPI>Insurance Services]
+        ParkingPandaAPI>Parking Services]
+        AGRAPI>AGR/Olson Services]
+        LoginAPI>Login Services]
+        AncillaryAPI>Ancillary Services]
+        ProfileAPI>Profile Services]
+        TrainAPI>Train Status API]
+        AlertsAPI>Alerts and Notifications API]
+        InteractionsAPI>Interactions API]
+
+      %% Front End Screens
+    		BookingPageAEM(Booking Pages)
+    		BookingPageURLRoutingAEM(Booking Page <br/> URL Routing Support)
+      %%SearchPageAEM(Search Page)
+        SearchResultsPageAEM(Search Results Page)
+        iSeatzPageAEM(Search Hotels,Cars Page)
+        ParkingPageAEM(Search Parking Page)
+        ProfilePageAEM(Profile Page)
+        LoginPageAEM(Login Page)
+        ContentPageAEM(Content Page)
+
+      %% External
+        PaymentGateway(Payment Gateway)
+        AGR20(AGR 2.0)
+
+      %% Rules Management
+    		RulesSearch(Search Rules Implementation)
+    		RulesBooking(Booking Rules Implementation)
+        RulesPayment(Payment Rules Implementation)
+
+      %% Styling
+     		class B2BC,B2BTI,B2BM,AM,SM,iSeatz,AGR,Ancillary1,Ancillary2,Ancillary3,Ancillary4,Allianz,ParkingPanda,UpSell featurette;
+     		class B2BValidation,B2BOnboarding,SearchAPI,BookingAPI,PaymentAPI,RCSAPI,iSeatzAPI,AllianzAPI,ParkingPandaAPI,AGRAPI,LoginAPI,ProfileAPI,AncillaryAPI,AlertsAPI,InteractionsAPI,TrainAPI mulesoft;
+    		class BookingPageAEM,BookingPageURLRoutingAEM,iSeatzPageAEM,SearchResultsPageAEM,iSeatzPageAEM,ParkingPageAEM,ProfilePageAEM,LoginPageAEM,ContentPageAEM aem;
+        class AGR20,PaymentGateway external;
+
+    		classDef featurette fill:#f9f,stroke:#333,stroke-width:4px;
+    		classDef mulesoft fill:#cff,stroke:#333,stroke-width:2px;
+    		classDef aem fill:#cfc,stroke:#333,stroke-width:2px;
+
+        classDef external fill:#99f,stroke:#333,stroke-width:2px;
+
+  		%% =============================
+  		%% DEPENDENCY ROADMAP BY FEATURE
+  		%% =============================
+
+    	%% B2B Variations: Metasearch, Corporate, Technology
+        SearchAPI-->B2BC
+        SearchAPI-->B2BTI
+        BookingPageAEM-->BookingPageURLRoutingAEM
+        SearchAPI-->BookingPageURLRoutingAEM
+        BookingPageURLRoutingAEM-->B2BM
+        BookingAPI --> B2BC
+        BookingAPI --> B2BTI
+        PaymentAPI --> B2BC
+        PaymentAPI --> B2BTI
+
+      %% iSeatz
+        iSeatzAPI-->iSeatzPageAEM
+    		SearchResultsPageAEM-->iSeatzPageAEM
+    		iSeatzPageAEM-->BookingPageAEM
+    		BookingPageAEM-->iSeatz
+
+      %% Parking Panda
+        ParkingPandaAPI-->ParkingPageAEM
+        SearchResultsPageAEM-->ParkingPageAEM
+        ParkingPageAEM-->BookingPageAEM
+        BookingPageAEM-->ParkingPanda
+
+      %% Allianz
+        AllianzAPI-->BookingPageAEM
+        BookingPageAEM-->Allianz
+
+      %% AGR
+        AGR20-->AGRAPI
+        AGRAPI-->AGR
+        AGR-->ProfilePageAEM
+        AGR-->SearchResultsPageAEM
+        AGR-->BookingPageAEM
+
+    	%% Account Management
+        LoginAPI-->LoginPageAEM
+        BookingAPI-->ProfileAPI
+        ProfileAPI-->ProfilePageAEM
+    		ProfilePageAEM-->AM
+        LoginPageAEM-->AM
+        BookingPageAEM-->AM
+        TrainAPI-->AM
+        AlertsAPI-->AM
+        InteractionsAPI-->AM
+
+    	%% Ancillary Type 1,2,3,4
+    		AncillaryAPI-->BookingPageAEM
+        BookingPageAEM-->Ancillary1
+        BookingPageAEM-->Ancillary2
+        BookingPageAEM-->Ancillary3
+        BookingPageAEM-->Ancillary4
+
+    	%% Up-sell
+        ProfileAPI-->ContentPageAEM
+        ContentPageAEM-->UpSell
+
+      %% Rules Management
+        RulesPayment-->PaymentAPI
+    		RulesSearch-->SearchAPI
+    		RulesBooking-->BookingAPI
+
+  		%% B2B Onboarding and Authorization
+    		B2BOnboarding-->B2BValidation
+    		B2BValidation-->SearchAPI
+    		B2BValidation-->BookingAPI
+        B2BValidation-->ProfileAPI
+
+      %% Basic Search
+        RCSAPI-->SearchAPI
+        SearchAPI-->SearchResultsPageAEM
+%%        LoginPageAEM-->SearchPageAEM
+%%        SearchPageAEM-->SearchResultsPageAEM
+
+      %% Basic Booking
+        SearchAPI-->BookingAPI
+        BookingAPI -->BookingPageAEM
+
+      %% Basic Payment Gateway
+        PaymentGateway-->PaymentAPI
+        PaymentAPI-->BookingPageAEM
+
+        %% Social Media
+%%          SM-->movedD(Moved to Team D)
+
+
+
+
+    </div>
+
+
+
+
+  </body>
+</html>

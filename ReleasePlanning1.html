@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/mermaidUML.css"/>
+    <script src="javascripts/mermaidUML.min.js"></script>
+    <title>Release Planning: Development Cycle</title>
+</head>
+    <body>
+      <h1>Release Planning: Development Cycle</h1>
+      <details open>
+        <summary>Summary</summary>
+
+        <p>
+          More times than not, project team managers (engagement managers?) take the "self-organizing" nature of agile teams too far and skip roles and responsibilities definitions.</p>
+          <p>
+            When the agile team is not very experienced, is easy to get confused by the lack of structure and accountability. So, here is a template that I've used in the past to circumvent that.
+            Hope it works for you.
+          </p>
+      </details>
+
+<h2>Distributed Agile team structure</h2>
+<p>
+  No matter what type of project methodology you follow, the roles and responsibilities are still there. The difference is on who does them and what they produce.</p>
+</p>
+  For example, here is an example on how we did it for one of my projects. Our typical feature team included the following:
+  <ul>
+    <li>1 BA/UX designer</li>
+    <li>1 Product Owner from the client side</li>
+    <li>2 UI/FE designer</li>
+    <li>2 QA engineers</li>
+    <li>5 developers, one of them the technical lead (but also responsible for devops tasks)</li>
+    <li>1 Scrum Master</li>
+  </ul>
+</p>
+<p>
+  Notice how the UX (User Experience) and BA (Business Analyst) roles are on the same person. This shortened the period of time between gathering the requirements and drafting the first mockups, and was the single point of contact for the client (Product Owner).
+  It also helped us put the UX where it should (in the past we used to have a lot of disconnects between the UX and the actual requirements. This is no longer the case in this approach).
+</p>
+<p>
+  Similarly, we have our main UI (User Interface) designer being also the main Front End developer. This helped the development of course. No longer a "this can't be done" by the developers was heard.
+  To reduce the effort and time required to create new UI pages, we created "style guides" of working HTML components (following principles of Atomic Design).
+</p>
+<p>
+  The Product Owner was all the contrary than the other ones: instead of having 1 product owner for the team, we had multiple ones (depending on the features being developed).
+   Many of them were beyond awesome, and helped us solve some impediments multiple times, thanks to their network of colleagues and knowledge of LoB systems.
+</p>
+<p>
+  The QA engineers were also junior developers with abnormal attention to detail. Interestengly, it was much easier for us to find junior developers than QA with experience.
+  They were there to also support the dev team when needed (they learn how to code through unit tests writing :)). Keep in mind that during release sprints, we had everyone on the team and as many as we could from the client side helping us test...just in case.
+</p>
+<p>
+  As for the developers, it was usually 2 senior and 3 mid-level programmers. Since this was not enough to support cross-functional requirements, we also had a shared "Star Team", composed like this:
+  <ul>
+    <li>1 BA/Tester, specialized in the industry (e.g. healthcare, transportation, etc.)</li>
+    <li>1 Architect, specialized in the technology stack (hands-on application)</li>
+    <li>1 Integration engineer/DBA, for back office and legacy connections and query/API optimizations</li>
+    <li>1 Front End guru, to support the UI/FE with any javascript/APIs/CSS they may be stuck on</li>
+    <li>1 Security engineer (part-time)</li>
+    <li>1 DevOps engineer (part-time)</li>
+  </ul>
+  The Star team also covered for team members in case of vacations, emergency time off, etc. (vs. reducing the capacity of existing scrum teams)
+</p>
+<p>
+  The Scrum Master was responsible of tracking the team progress and solving any impediments (which mostly was around getting access to systems :)). On top of this, they were also responsible of coordinating with the other scrum masters (scrum of scrums), under the project Engagement Manager.
+  Basically, if the client needed any reporting, it was the Scrum Master who would provide that based on his/her scrum calls.
+</p>
+
+<h2>Distributed Agile teams cycle</h2>
+<p>
+  We used 2 weeks scrums, offset 2 weeks of each other to maximize resources:
+  <ul>
+    <li><b>Weeks 0,2,4,6,8,10,14,16,18,22,etc.:</b> Sprint for discovery, between the Product Owner, the BA/UX, with some participation from the UI/FE and technical lead</li>
+    <li><b>Weeks 2,4,6,8,10,14,16,18,22,etc.:</b> Sprint for high quality design, between the BA/UX and the UI/FE, with some participation from the PO and QA lead</li>
+    <li><b>Weeks 4,6,8,10,14,16,18,22,etc.:</b> Sprint for coding and bug fixing, between the PO, BA/UX and all developers, with some participation from the UI/FE, QA and Devops</li>
+    <li><b>Weeks 6,8,10,14,16,18,22,etc.:</b> Sprint for QA and UAT</li>
+  </ul>
+  <p>
+    Besides these 4 sprints, the release train cycle was set for one release every 3 sprints (with the exception of the first release).
+    <ul>
+      <li><b>Weeks 12,20,28,36,etc.:</b> Release Sprint: merge release branch; update documentation; release notes; testing: performance, load, security, integration; deployment.</li>
+    </ul>
+  </p>
+</p>
+
+<h2>Distributed Agile team flow</h2>
+<h3>Per User Story/FEATURE</h3>
+
+<p>
+  Here is how we distributed the roles and responsibilities. As stated before, some roles are done by more than one person and viceversa.
+</p>
+
+<h4>Legend:</h4>
+<ul style="font-size: 1.1em; width: 200px; padding: 0.5em 2em; background-color:peru;color:#222">
+  <li style="border-bottom:solid 4px pink">Pink: Business Analyst</li>
+  <li style="border-bottom:solid 4px lightgray">Gray: Client</li>
+  <li style="border-bottom:solid 4px violet">Violet: UX</li>
+  <li style="border-bottom:solid 4px yellow">Yellow: UI</li>
+  <li style="border-bottom:solid 4px orange">Orange: QA</li>
+  <li style="border-bottom:solid 4px lightcyan">Cyan: Dev</li>
+  <li style="border-bottom:solid 4px lightgreen">Green: Devops</li>
+</ul>
+
+<div class="mermaid">
+  graph TB
+  subgraph Distributed Agile team flow
+    ba0((FEATURE))-->ba1
+    ba1(understand business requirements:<br/>e.g. variations, rules, personas) --> ba2(document user story, paying special attention<br/>in the success/acceptance criteria)
+    ba2-->client1{review<br/>US and<br/>acceptance<br/>criteria}
+    client1==rejected==>ba1
+    client1==approved==>ux1(refine user story understanding)
+    ux1-->ux2(create low quality mockups for <br/>.com, CSR and Station Agent)
+    ux2-->client3{review<br/>low quality<br/>mockups}
+    client3==rejected==>ba1
+    client3==approved==>ui1(refine user story understanding)
+    ui1-->ui2(update UI style guide)
+    ui2-->ui3(create high quality designs<br/> based on the mockups)
+    ui3-->client3a{review<br/>high quality<br/>mockups}
+    client3a==rejected==>ba1
+    client3a==approved==>qa1(write test cases)
+
+
+    ui3-->qa1a(update test cases)
+    qa1a-->dev5
+    qa1-->dev2(estimate story points)
+    dev2-->dev4(branch a new feature)
+    dev4-->dev5(create unit tests)
+    dev5-->dev6(code)
+    dev6-->dev7(local test)
+    dev7-->devops1{run<br/>automated<br/>tests}
+    devops1==tests passed==>dev8(pull request)
+    devops1==tests failed==>dev5
+    dev8-->dev8a{code review}
+    dev8a==code rejected==>dev5
+    dev8a==code approved==>devops2(merge)
+    devops2-->devops3(deploy in qa)
+    devops3-->qa2(manual verification)
+    qa3==tests passed==>devops4(automated deploy in staging)
+    devops4-->client2{<h3>UAT</h3>}
+    client2==extremely COSTLY<br/>reject==>ba1
+    client2==approved==>ba5((NEXT<br/>FEATURE))
+    qa2-->qa3{approve test}
+    qa3==tests failed==>dev9(create bugfix branch)
+    dev9==>dev5
+  end
+  classDef classBA fill:pink;
+  classDef classClient fill:lightgray;
+  classDef classUX fill:violet;
+  classDef classUI fill:yellow;
+  classDef classQA fill:orange;
+  classDef classDev1 fill:lightcyan;
+  classDef classDevOps fill:lightgreen;
+  class ba0,ba1,ba2,ba3,ba4,ba5 classBA;
+  class client1,client2,client3,client3a,client4 classClient;
+  class qa1,qa1a,qa2,qa3,qa4 classQA;
+  class ux1,ux2 classUX;
+  class ui1,ui2,ui3 classUI;
+  class dev2,dev3,dev4,dev5,dev6,dev7,dev8,dev8a,dev9 classDev1;
+  class devops1,devops2,devops3,devops4 classDevOps;
+
+</div>
